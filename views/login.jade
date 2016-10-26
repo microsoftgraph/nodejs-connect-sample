@@ -1,0 +1,17 @@
+
+//- Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+//- See LICENSE in the project root for license information.
+
+extends layout
+
+block content
+  .ms-Grid
+    .ms-Grid-row
+      .ms-NavBar
+        ul.ms-NavBar-items
+          li.navbar-header Microsoft Graph sample
+      .ms-Grid-col.ms-u-mdPush1.ms-u-md9.ms-u-lgPush1.ms-u-lg6
+        div
+          p.ms-font-xl Use the button below to connect to Microsoft Graph.
+          button#connect_button.ms-Button(onclick="window.location.href='login'")
+            span.ms-Button-label Connect to Microsoft Graph

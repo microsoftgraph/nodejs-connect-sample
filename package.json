@@ -1,0 +1,29 @@
+{
+  "name": "msgraph-nodejs-connect-sample",
+  "version": "1.0.0",
+  "description": "A NodeJS connect sample utilizing the Graph JavaScript SDK",
+  "main": "app.js",
+  "keywords": [
+    "graph",
+    "microsoft",
+    "nodejs",
+    "unified"
+  ],
+  "author": "Beth Pan",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
+    "express": "^4.13.4",
+    "express-session": "^1.14.0",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.6",
+    "morgan": "^1.7.0",
+    "msgraph-sdk-javascript": "^0.1.1",
+    "passport": "^0.3.2",
+    "passport-azure-ad": "^2.0.3",
+    "superagent": "^2.3.0",
+    "uuid": "^2.0.2"
+  }
+}

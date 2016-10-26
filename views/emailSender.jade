@@ -1,0 +1,27 @@
+
+//- Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+//- See LICENSE in the project root for license information.
+
+extends layout
+
+block content
+  .ms-Grid-row
+    .ms-NavBar
+      ul.ms-NavBar-items
+        li.navbar-header Microsoft Graph Connect sample
+        li#disconnect_link.ms-NavBar-item.ms-NavBar-item--right(onclick="window.location.href='logout'")
+          i.ms-Icon.ms-Icon--x
+          |  Disconnect
+    form(action='/emailSender', method='post')
+      .ms-Grid-col.ms-u-mdPush1.ms-u-md9.ms-u-lgPush1.ms-u-lg6
+        div
+          h2.ms-font-xxl.ms-fontWeight-semibold Hi, #{user.displayName}!
+          p.ms-font-xl
+            | You're now connected to Microsoft Graph. Click the button below to send a message from your account using the Microsoft Graph.
+          .ms-TextField
+            input.ms-TextField-field(name='input_email', value='#{user.email}')
+          button#send_mail_button.ms-Button
+            span.ms-Button-label Send mail
+          if status == "success"
+            div
+              p.ms-font-m.ms-fontColor-green Successfully sent an email!
