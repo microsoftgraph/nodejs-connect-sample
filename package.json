@@ -20,7 +20,7 @@
     "jade": "^1.11.0",
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
-    "msgraph-sdk-javascript": "^0.1.1",
+    "msgraph-sdk-javascript": "~0.2.1",
     "passport": "^0.3.2",
     "passport-azure-ad": "^2.0.3",
     "superagent": "^2.3.0",
