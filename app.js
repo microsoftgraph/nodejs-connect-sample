@@ -103,7 +103,7 @@ app.get('/token',
 app.post('/emailSender',
 	ensureAuthenticated,
 	(req, res) => {
-		var client = graph.init({
+		var client = graph.Client.init({
 			defaultVersion: 'v1.0',
 			debugLogging: true,
 			authProvider: function (done) {
