@@ -17,9 +17,7 @@
 const express = require('express');
 const session = require('express-session');
 const port = process.env.PORT || 3000;
-const fs = require('fs');
 const http = require('http');
-const uuid = require('uuid');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
@@ -93,7 +91,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.use(cookieParser());
 app.use(session({
   secret: 'sshhhhhh',

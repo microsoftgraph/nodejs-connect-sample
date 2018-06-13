@@ -21,10 +21,9 @@
     "express": "^4.13.4",
     "express-session": "^1.14.0",
     "http": "0.0.0",
-    "jade": "^1.11.0",
     "method-override": "^2.3.6",
     "morgan": "^1.7.0",
     "passport-azure-ad": "^3.0.12",
-    "uuid": "^2.0.2"
+    "pug": "^2.0.3"
   }
 }
