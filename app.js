@@ -26,6 +26,7 @@ const passport = require('passport');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const emailHelper = require('./utils/emailHelper.js');
 const config = require('./utils/config.js');
+const graphHelper = require('./utils/graphHelper.js');
 const graph = require('@microsoft/microsoft-graph-client');
 
 const app = express();
@@ -106,7 +107,22 @@ app.use(passport.session());
 // application =================================================================
 app.get('/', function(req, res){
   if (req.isAuthenticated()) {
-    res.render('emailSender', { user: req.user.profile});
+    var userEmail = req.user.email;
+    if (userEmail === undefined) {
+      graphHelper.getUserEmail(req.user, function(err, email){
+        if (email)
+        {
+          userEmail = email;
+          // Update user in cache
+          var userIndex = users.findIndex((obj => obj.profile.oid == req.user.profile.oid));
+          users[userIndex]["email"] = email;
+
+          res.render('emailSender', { user: req.user.profile, email: userEmail });
+        }
+      });
+    } else {
+      res.render('emailSender', { user: req.user.profile, email: userEmail });
+    }
   } else {
     res.render('login');
   }
@@ -140,32 +156,23 @@ app.get('/token',
 app.post('/emailSender',
   ensureAuthenticated,
   (req, res) => {
-    var client = graph.Client.init({
-      defaultVersion: 'v1.0',
-      debugLogging: true,
-      authProvider: function (done) {
-        done(null, req.user.accessToken);
-      }
-    });
-    client.api('/me').select(["displayName", "userPrincipalName"]).get((err, me) => {
+    const mailBody = emailHelper.generateMailBody(req.user.profile.displayName, req.body.input_email);
+
+    graphHelper.sendEmail(req.user, mailBody, function(err) {
       if (err) {
         renderError(res, err);
         return;
       }
-      const mailBody = emailHelper.generateMailBody(me.displayName, req.body.input_email);
-      client.api('/users/me/sendMail').post(mailBody,(err, mail) => {
-        if (err){
-          renderError(res, err);
-          return;
-        }
-        else
-          console.log("Sent an email");
-          res.render('emailSender', { user: req.user.profile, status: "success"});
-      })
+
+      console.log("Sent an email");
+      res.render('emailSender', { user: req.user.profile, status: "success"});
     });
 });
 
 app.get('/logout', (req, res) => {
+  // Remove user from cache
+  users.splice(
+    users.findIndex((obj => obj.profile.oid == req.user.profile.oid)), 1);
   req.session.destroy( (err) => {
     req.logOut();
   res.clearCookie('graphNodeCookie');
