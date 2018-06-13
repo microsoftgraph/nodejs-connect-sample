@@ -16,7 +16,6 @@
 // set up ======================================================================
 const express = require('express');
 const session = require('express-session');
-const stack = require('./routes/stack');
 const port = process.env.PORT || 3000;
 const fs = require('fs');
 const http = require('http');
