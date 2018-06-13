@@ -28,7 +28,7 @@ const passport = require('passport');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const emailHelper = require('./utils/emailHelper.js');
 const config = require('./utils/config.js');
-const graph = require('msgraph-sdk-javascript');
+const graph = require('@microsoft/microsoft-graph-client');
 
 const app = express();
 const server = http.createServer(app);
@@ -45,7 +45,6 @@ const server = http.createServer(app);
 
 // authentication =================================================================
 var callback = (iss, sub, profile, accessToken, refreshToken, done) => {
-  console.log("In callback, profile:", JSON.stringify(profile));
   if (!profile.oid) {
     return done(new Error("No oid found"), null);
   }
@@ -82,7 +81,6 @@ var findByOid = function(oid, fn) {
   for (var i = 0, len = users.length; i < len; i++) {
     var user = users[i];
     if (user.profile.oid === oid) {
-      console.log('we are using user: ', user);
       return fn(null, user);
     }
   }
@@ -125,13 +123,11 @@ app.get('/login',
     })(req, res, next);
   },
   function (req, res) {
-    console.log('Login called...');
     res.redirect('/');
   });
 
 app.get('/token',
   function(req, res, next) {
-    console.log('Token endpoint called?');
     passport.authenticate('azuread-openidconnect',
       {
         response: res,
