@@ -19,7 +19,7 @@ block content
           p.ms-font-xl
             | You're now connected to Microsoft Graph. Click the button below to send a message from your account using the Microsoft Graph.
           .ms-TextField
-            input.ms-TextField-field(name='input_email', value='#{user.email}')
+            input.ms-TextField-field(name='input_email', value=email)
           button#send_mail_button.ms-Button
             span.ms-Button-label Send mail
           if status == "success"
