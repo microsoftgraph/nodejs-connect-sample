@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A NodeJS connect sample utilizing the Graph JavaScript SDK",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "keywords": [
     "graph",
     "microsoft",

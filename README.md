@@ -37,7 +37,7 @@ To use the Microsoft Graph Connect Sample for Node.js, you need the following:
 1. Run the following command to start the development server.
 
     ```Shell
-    node app.js
+    npm start
     ```
 
 1. Navigate to `http://localhost:3000/` in your web browser.
